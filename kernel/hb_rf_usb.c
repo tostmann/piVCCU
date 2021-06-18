@@ -446,22 +446,14 @@ static struct raw_uart_driver hb_rf_usb = {
 
 static int hb_rf_usb_probe(struct usb_interface *interface, const struct usb_device_id *id)
 {
-  struct hb_rf_usb_port_s *port;
-  struct usb_device *udev = usb_get_dev(interface_to_usbdev(interface));
+  struct hb_rf_usb_port_s *port = kzalloc(sizeof(struct hb_rf_usb_port_s), GFP_KERNEL);
 
-  if (strcmp(udev->manufacturer, "Alexander Reinert"))
-  {
-    dev_err(&udev->dev, "Unsupported manufacturer %s\n", udev->manufacturer);
-    return -ENODEV;
-  }
-
-  dev_info(&udev->dev, "Found HB-RF-USB at usb-%s-%s\n", udev->bus->bus_name, udev->devpath);
-
-  port = kzalloc(sizeof(struct hb_rf_usb_port_s), GFP_KERNEL);
   usb_set_intfdata(interface, port);
 
-  port->udev = udev;
+  port->udev = usb_get_dev(interface_to_usbdev(interface));
   port->iface = usb_get_intf(interface);
+
+  dev_info(&port->udev->dev, "Found HB-RF-USB at usb-%s-%s\n", port->udev->bus->bus_name, port->udev->devpath);
 
   spin_lock_init(&port->is_in_tx_lock);
   spin_lock_init(&port->gpio_lock);
@@ -548,6 +540,6 @@ module_init(hb_rf_usb_init);
 module_exit(hb_rf_usb_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_VERSION("1.8");
+MODULE_VERSION("1.7");
 MODULE_DESCRIPTION("HB-RF-USB raw uart driver for communication of debmatic and piVCCU with the HM-MOD-RPI-PCB and RPI-RF-MOD radio modules");
 MODULE_AUTHOR("Alexander Reinert <alex@areinert.de>");
