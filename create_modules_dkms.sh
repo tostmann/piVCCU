@@ -1,5 +1,5 @@
 #!/bin/bash
-PKG_BUILD=61
+PKG_BUILD=62
 
 PKG_VERSION=2.0.$PKG_BUILD
 
@@ -44,6 +44,7 @@ cp -p $CURRENT_DIR/pivccu/dkms/*.sh $TARGET_DIR/var/lib/piVCCU/dkms
 
 mkdir -p $TARGET_DIR/lib/udev/rules.d
 cp -p $CURRENT_DIR/pivccu/rtc/*.rules $TARGET_DIR/lib/udev/rules.d
+cp -p $CURRENT_DIR/pivccu/interfaces/*.rules $TARGET_DIR/lib/udev/rules.d
 
 mkdir -p $TARGET_DIR/DEBIAN
 cp -p $CURRENT_DIR/package/pivccu-modules-dkms/* $TARGET_DIR/DEBIAN
