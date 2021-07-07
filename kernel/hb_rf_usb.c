@@ -93,6 +93,7 @@ struct hb_rf_usb_port_s
 static struct usb_device_id usbid[] = {
     {
         USB_DEVICE(0x0403, 0x6F70),
+        USB_DEVICE(0x0403, 0x6BF0),
     },
     {}};
 
