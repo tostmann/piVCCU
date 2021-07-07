@@ -1,7 +1,7 @@
 #!/bin/bash
 PKG_BUILD=62
 
-PKG_VERSION=2.0.$PKG_BUILD
+PKG_VERSION=1.99.$PKG_BUILD
 
 CURRENT_DIR=$(pwd)
 WORK_DIR=$(mktemp -d)
